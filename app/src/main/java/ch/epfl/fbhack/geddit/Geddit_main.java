@@ -51,7 +51,8 @@ public class Geddit_main extends ActionBarActivity {
             return true;
         } else if(id==R.id.action_map){
             Intent intent = new Intent(Geddit_main.this, activity_map.class);
-            startActivity(intent );
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
