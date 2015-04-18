@@ -3,4 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_refresh">refresh</string>
+    <string name="action_map">map</string>
+    <string name="title_activity_subgeddit">subgeddit</string>
+    <string name="title_activity_activity_map">activity_map</string>
 </resources>

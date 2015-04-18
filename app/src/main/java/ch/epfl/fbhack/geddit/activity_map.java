@@ -1,41 +1,35 @@
 package ch.epfl.fbhack.geddit;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
+import org.osmdroid.views.MapController;
+import org.osmdroid.views.MapView;
 
 
-public class Geddit_main extends ActionBarActivity {
+public class activity_map extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_geddit_main);
+        setContentView(R.layout.activity_activity_map);
 
-        populateListViewSubgeddit();
+        MapView mapView;
+        MapController mapController;
+        mapView = (MapView) this.findViewById(R.id.mapview);
+        mapView.setBuiltInZoomControls(true);
+        mapView.setMultiTouchControls(true);
+        mapController = (MapController) mapView.getController();
+        mapController.setZoom(2);
     }
 
-    private void populateListViewSubgeddit() {
-        //create list of items
-        String[] myItems = {"EPFL hackathon, 1m", "Indian restaurant, 20m", "IC Library, 2m"};
-
-        //build adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.subgeddit_list_item, myItems);
-
-        //configure the list view
-        ListView list = (ListView) findViewById(R.id.listView_main_subgeddit);
-        list.setAdapter(adapter);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_geddit_main, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_map, menu);
         return true;
     }
 
@@ -49,12 +43,8 @@ public class Geddit_main extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        } else if(id==R.id.action_map){
-            Intent intent = new Intent(Geddit_main.this, activity_map.class);
-            startActivity(intent );
         }
 
         return super.onOptionsItemSelected(item);
     }
 }
-
