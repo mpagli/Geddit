@@ -70,10 +70,10 @@ public class activity_map extends ActionBarActivity {
         MyItemizedOverlay myItemizedOverlay = new MyItemizedOverlay(marker, this);
         mMap.getOverlays().add(myItemizedOverlay);
 
-        GeoPoint myPoint1 = new GeoPoint(0*1000000, 0*1000000);
-        myItemizedOverlay.addItem(myPoint1, "myPoint1", "myPoint1");
-        GeoPoint myPoint2 = new GeoPoint(50*1000000, 50*1000000);
-        myItemizedOverlay.addItem(myPoint2, "myPoint2", "myPoint2");
+        GeoPoint myPoint1 = new GeoPoint(45.42100, 4.42100);
+        myItemizedOverlay.addItem(myPoint1, "45.42100,4.42100", "45.42100,4.42100");
+        GeoPoint myPoint2 = new GeoPoint(46.52017, 6.63635);
+        myItemizedOverlay.addItem(myPoint2, "46.52017,6.63635", "46.52017,6.63635");
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);

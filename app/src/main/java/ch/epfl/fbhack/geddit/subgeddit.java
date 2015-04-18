@@ -1,9 +1,11 @@
 package ch.epfl.fbhack.geddit;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class subgeddit extends ActionBarActivity {
@@ -12,8 +14,14 @@ public class subgeddit extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subgeddit);
-    }
 
+        Intent intent = getIntent();
+        String toast = "No extras in the Intent!";
+        if(intent != null) {
+            toast = intent.getStringExtra("geddit-id");
+        }
+        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

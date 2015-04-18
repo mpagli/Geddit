@@ -6,9 +6,11 @@ package ch.epfl.fbhack.geddit;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import org.osmdroid.api.IMapView;
@@ -33,12 +35,10 @@ public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
     @Override
     protected boolean onTap(int index) {
-        // TODO Auto-generated method stub
-        //return super.onTap(index);
 
-        Toast.makeText(context,
-                "Touch on marker: \n" + overlayItemList.get(index).getTitle(),
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(context, subgeddit.class);
+        intent.putExtra("geddit-id", overlayItemList.get(index).getTitle());
+        context.startActivity(intent);
 
         return true;
     }
