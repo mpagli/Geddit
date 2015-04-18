@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
-public class subgeddit extends ActionBarActivity {
+public class Activity_Subgeddit extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

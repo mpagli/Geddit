@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,7 +15,7 @@ import ch.epfl.fbhack.geddit.data.ApiRequester;
 import ch.epfl.fbhack.geddit.data.Subgeddit;
 
 
-public class Geddit_main extends ActionBarActivity {
+public class Activity_List extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public class Geddit_main extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if(id==R.id.action_map){
-            Intent intent = new Intent(Geddit_main.this, activity_map.class);
+            Intent intent = new Intent(Activity_List.this, Activity_Map.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
