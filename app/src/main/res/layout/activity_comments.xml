@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:paddingTop="20dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:textSize="30px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:id="@+id/firstComment_title"
+        android:layout_weight="0.14"
+        android:background="#ff48aaff" />
+
+    <TextView
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="30dp"
+        android:textSize="27px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ecwe we fwefefermlgk  k  kr k rk   lwekw;w kk ;f jk kr ewj kq kjedk w kek kefk ekf jwej  j kfej kjw; jkejf kjkfej wekjfk jdjfk df;wjdkf jw;ef kwe;f kjw"
+        android:id="@+id/firstComment_body"
+        android:layout_weight="0.14"
+        android:background="#ff48aaff" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="383dp"
+        android:id="@+id/comments_list"
+        android:layout_weight="0.87" />
+</LinearLayout>
