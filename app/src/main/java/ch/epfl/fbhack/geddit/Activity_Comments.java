@@ -14,7 +14,7 @@ import ch.epfl.fbhack.geddit.data.ApiResponse;
 
 public class Activity_Comments extends ActionBarActivity{
 
-    private int subgedditIndex;
+    private String subgedditID;
     private int threadIndex;
 
     @Override
@@ -22,14 +22,14 @@ public class Activity_Comments extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_threads); // Same simple list for now
 
-        subgedditIndex = getIntent().getIntExtra("subgedditIndex", 0);
+        subgedditID = getIntent().getStringExtra("subgedditID");
         threadIndex = getIntent().getIntExtra("threadIndex", 0);
         buildCommentsList();
     }
 
     private void buildCommentsList() {
 
-        ArrayList<String> commmentsTitles = ApiResponse.getInstance().getCommentsTitlesFor(subgedditIndex, threadIndex);
+        ArrayList<String> commmentsTitles = ApiResponse.getInstance().getCommentsTitlesFor(subgedditID, threadIndex);
 
 //        Toast.makeText(this, threadsTitles.get(0), Toast.LENGTH_SHORT).show();
 

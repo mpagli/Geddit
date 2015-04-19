@@ -80,7 +80,7 @@ public class ApiResponse {
         return threadsScores;
     }
 
-    public ArrayList<String> getCommentsTitlesFor(int subgedditIndex, int threadIndex) {
+    public ArrayList<String> getCommentsTitlesFor(String subgedditIndex, int threadIndex) {
         ArrayList<Comment> comments = subgeddits.get(subgedditIndex).threads.get(threadIndex).comments;
 
         ArrayList<String> commentsTitles = new ArrayList<>(comments.size());
