@@ -125,7 +125,7 @@ public class Activity_Map extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if(id == R.id.action_list) {
-            Intent intent = new Intent(Activity_Map.this, Activity_List.class);
+            Intent intent = new Intent(Activity_Map.this, Activity_Main.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }

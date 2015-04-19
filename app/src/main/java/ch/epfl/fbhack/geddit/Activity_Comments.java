@@ -1,32 +1,36 @@
 package ch.epfl.fbhack.geddit;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class Activity_Subgeddit extends ActionBarActivity {
+public class Activity_Comments extends ActionBarActivity  implements AdapterView.OnItemClickListener{
+
+    private int subgedditIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subgeddit);
+        setContentView(R.layout.activity_threads);
 
-        int position = getIntent().getIntExtra("position", 0);
-        buildThreadsList(position);
+        subgedditIndex = getIntent().getIntExtra("subgedditIndex", 0);
+        buildThreadsList();
     }
 
-    private void buildThreadsList(int position) {
+    private void buildThreadsList() {
 
-        ArrayList<String> threadsTitles = Activity_List.data.getThreadsTitlesFor(position);
+        ArrayList<String> threadsTitles = Activity_Main.data.getThreadsTitlesFor(subgedditIndex);
 
-        Toast.makeText(this, threadsTitles.get(0), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, threadsTitles.get(0), Toast.LENGTH_SHORT).show();
 
 
         //build adapter
@@ -59,5 +63,13 @@ public class Activity_Subgeddit extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Intent intent = new Intent(Activity_Comments.this, Activity_Comments.class);
+        intent.putExtra("subgedditIndex", position);
+        startActivity(intent);
     }
 }

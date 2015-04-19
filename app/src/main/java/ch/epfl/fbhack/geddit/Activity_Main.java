@@ -16,7 +16,7 @@ import ch.epfl.fbhack.geddit.data.ApiRequester;
 import ch.epfl.fbhack.geddit.data.ApiResponse;
 
 
-public class Activity_List extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class Activity_Main extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     // Loaded at the beginning (and when refreshing) => check if null
     public static ApiResponse data = null;
@@ -24,7 +24,7 @@ public class Activity_List extends ActionBarActivity implements AdapterView.OnIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_main);
 
         // This launch the request to the API => function processApiResponse is called when completed
         new ApiRequester(this).execute();
@@ -48,7 +48,7 @@ public class Activity_List extends ActionBarActivity implements AdapterView.OnIt
         if (id == R.id.action_settings) {
             return true;
         } else if(id==R.id.action_map){
-            Intent intent = new Intent(Activity_List.this, Activity_Map.class);
+            Intent intent = new Intent(Activity_Main.this, Activity_Map.class);
             startActivity(intent );
         }
 
@@ -58,14 +58,14 @@ public class Activity_List extends ActionBarActivity implements AdapterView.OnIt
     // Called by ApiRequester when the request has been completed
     public void processApiResponse(ApiResponse data) {
         // Save data in global variable (BAD!!!)
-        Activity_List.data = data;
+        Activity_Main.data = data;
 
         // Build the view
         buildSgList();
     }
 
     private void buildSgList() {
-        ArrayList<String> sgNames = data.getSgNames();
+        ArrayList<String> sgNames = data.getSubgedditNames();
 
         //build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sgNames);
@@ -80,14 +80,9 @@ public class Activity_List extends ActionBarActivity implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Intent intent = new Intent(Activity_List.this, Activity_Subgeddit.class);
-        intent.putExtra("position", position);
+        Intent intent = new Intent(Activity_Main.this, Activity_Threads.class);
+        intent.putExtra("subgedditIndex", position);
         startActivity(intent);
-
-        // TODO Not working yet (=> then launch new activity)
-//        Toast.makeText(this.getApplicationContext(), position,
-//                Toast.LENGTH_SHORT).show();
-
     }
 }
 

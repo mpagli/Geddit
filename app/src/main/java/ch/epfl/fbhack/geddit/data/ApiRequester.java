@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import ch.epfl.fbhack.geddit.Activity_List;
+import ch.epfl.fbhack.geddit.Activity_Main;
 
 /**
  * Created by fred on 18/04/15.
@@ -22,12 +22,12 @@ import ch.epfl.fbhack.geddit.Activity_List;
  */
 public class ApiRequester extends AsyncTask<Void, Integer, String> {
 
-    private Activity_List mainActivity;
+    private Activity_Main mainActivity;
 
     private static final int TIMEOUT = 15000;
     private static final String BASE_URL = "http://713f665696.testurl.ws/api/?action=read";
 
-    public ApiRequester(Activity_List mainActivity){
+    public ApiRequester(Activity_Main mainActivity){
         this.mainActivity = mainActivity;
     }
 
