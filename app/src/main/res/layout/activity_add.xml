@@ -6,38 +6,44 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location" />
+            android:text="@string/location"
+            android:labelFor="@+id/location"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/location"/>
+            android:id="@+id/location"
+            android:inputType="text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thread"/>
+            android:text="@string/thread"
+            android:labelFor="@+id/thread" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/thread"/>
+            android:id="@+id/thread"
+            android:inputType="text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comment"/>
+            android:text="@string/comment"
+            android:labelFor="@+id/comment"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/comment"
-            android:lines="4" />
+            android:lines="4"
+            android:inputType="textMultiLine" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add!"
+        android:text="@string/add"
         android:id="@+id/button" />
 
 </LinearLayout>

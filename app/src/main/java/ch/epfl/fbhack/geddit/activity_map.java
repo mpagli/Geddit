@@ -35,7 +35,6 @@ public class Activity_Map extends ActionBarActivity {
 
     private LocationManager locationManager;
     MapController mapController;
-    private ArrayList<OverlayItem> mOverlays;
 
     private final LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
@@ -90,22 +89,14 @@ public class Activity_Map extends ActionBarActivity {
     }
 
     private void updateWithNewLocation(Location location) {
-        String ll;
-        TextView myLocationText = (TextView) findViewById(R.id.myLocationText);
-
         if(location != null && mMap != null && mapController != null) {
             double lat = location.getLatitude();
             double lon = location.getLongitude();
-            ll = "Lat:"+lat+"  lon:"+lon+"  "+location.toString();
 
             mapController.setCenter(new GeoPoint(location.getLatitude(), location.getLongitude()));
 
             setUserPositionAt(location);
-
-        } else {
-            ll = "No location found";
         }
-        myLocationText.setText(ll);
     }
 
     public void setUserPositionAt(Location location) {

@@ -25,8 +25,10 @@ public class ApiRequesterVote extends AsyncTask<Void, Integer, String> {
 
     private static final int TIMEOUT = 15000;
     private static final String BASE_URL = "http://713f665696.testurl.ws/api/?action=vote";
-    private String subgedditID, threadID, commentID;
-    private boolean upvote;
+    private final String subgedditID;
+    private final String threadID;
+    private final String commentID;
+    private final boolean upvote;
 
     public ApiRequesterVote(String subgedditID, String threadID, String commentID, boolean upvote) {
         super();

@@ -1,17 +1,14 @@
 package ch.epfl.fbhack.geddit.data;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by fred on 19/04/15.
@@ -20,7 +17,7 @@ public class ApiResponse {
 
     private static ApiResponse instance;
 
-    private static Map<String, Subgeddit> subgeddits = new HashMap<>();
+    private static final Map<String, Subgeddit> subgeddits = new HashMap<>();
 
     public synchronized static ApiResponse getInstance() {
         if (instance==null)
@@ -102,12 +99,10 @@ public class ApiResponse {
 
     // ##################  Private container classes  ##################
     private class Subgeddit {
-        public String latLng;
-        public String name;
-        public ArrayList<Thread> threads;
+        public final String name;
+        public final ArrayList<Thread> threads;
 
         public Subgeddit(String latLng, JSONObject jSubgeddit){
-            this.latLng = latLng;
             name = jSubgeddit.optString("name");
 
             JSONObject jThreads = jSubgeddit.optJSONObject("thread");
@@ -124,11 +119,11 @@ public class ApiResponse {
     }
 
     private class Thread {
-        public String id;
-        public String title;
-        public int upvote;
-        public int downvote;
-        public ArrayList<Comment> comments;
+        public final String id;
+        public final String title;
+        public final int upvote;
+        public final int downvote;
+        public final ArrayList<Comment> comments;
 
         public Thread(String threadId, JSONObject jThread) {
             id = threadId;
@@ -146,11 +141,11 @@ public class ApiResponse {
     }
 
     private class Comment {
-        public String title;
-        public String body;
-        public int upvote;
-        public int downvote;
-        public long dateTime;
+        public final String title;
+        public final String body;
+        public final int upvote;
+        public final int downvote;
+        public final long dateTime;
 
         public Comment(JSONObject jComment) {
             title = jComment.optString("title");

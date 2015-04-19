@@ -19,10 +19,10 @@ class AccuracyCircleOverlay extends Overlay {
     private final DevicePixelConverter mConvertPx;
     private GeoPoint mPoint;
     private float mAccuracy;
-    private Paint mCircleFillPaint = new Paint();
-    private Paint mCircleStrokePaint = new Paint();
-    private Paint mCenterPaint = new Paint();
-    private Paint mCenterStrokePaint = new Paint();
+    private final Paint mCircleFillPaint = new Paint();
+    private final Paint mCircleStrokePaint = new Paint();
+    private final Paint mCenterPaint = new Paint();
+    private final Paint mCenterStrokePaint = new Paint();
 
     AccuracyCircleOverlay(Context ctx, int color) {
         super(ctx);

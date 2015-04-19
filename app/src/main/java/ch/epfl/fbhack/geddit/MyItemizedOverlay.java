@@ -23,8 +23,8 @@ import org.osmdroid.views.overlay.OverlayItem;
 
 public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
-    private ArrayList<OverlayItem> overlayItemList = new ArrayList<OverlayItem>();
-    Context context;
+    private final ArrayList<OverlayItem> overlayItemList = new ArrayList<OverlayItem>();
+    final Context context;
 
     public MyItemizedOverlay(Drawable marker, Context c) {
         super(marker, new ResourceProxyImpl(c));

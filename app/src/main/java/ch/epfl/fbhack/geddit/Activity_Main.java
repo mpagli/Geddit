@@ -21,8 +21,8 @@ import ch.epfl.fbhack.geddit.data.ApiResponse;
 public class Activity_Main extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     // Loaded at the beginning (and when refreshing) => check if null
-    private ArrayList<String> sgIDs = new ArrayList<>();
-    private ArrayList<String> sgNames = new ArrayList<>();
+    private final ArrayList<String> sgIDs = new ArrayList<>();
+    private final ArrayList<String> sgNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

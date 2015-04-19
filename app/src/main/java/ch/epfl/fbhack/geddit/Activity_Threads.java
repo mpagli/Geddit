@@ -20,8 +20,8 @@ import ch.epfl.fbhack.geddit.data.ApiResponse;
 public class Activity_Threads extends ActionBarActivity  implements AdapterView.OnItemClickListener{
 
     private String subgedditID;
-    ArrayList<String> threadsTitles = new ArrayList<>();
-    ArrayList<String> threadsScores = new ArrayList<>();
+    final ArrayList<String> threadsTitles = new ArrayList<>();
+    final ArrayList<String> threadsScores = new ArrayList<>();
     CustomAdapterThread adapter;
 
 
