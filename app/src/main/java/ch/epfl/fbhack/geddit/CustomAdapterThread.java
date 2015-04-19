@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -53,6 +54,20 @@ public class CustomAdapterThread extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 activity.onItemClick(null, null, position, 0);
+            }
+        });
+
+        row.findViewById(R.id.upvote).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onUpvote(null, null, position, 0);
+            }
+        });
+
+        row.findViewById(R.id.downvote).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onDownvote(null, null, position, 0);
             }
         });
 

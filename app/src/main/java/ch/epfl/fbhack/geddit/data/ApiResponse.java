@@ -36,6 +36,7 @@ public class ApiResponse {
 
     public void setData(JSONObject response){
         Iterator<String> sgIt = response.keys();
+        subgeddits.clear();
         while (sgIt.hasNext()) {
             String latLng = sgIt.next();
             JSONObject jSubgeddit = response.optJSONObject(latLng);
@@ -58,9 +59,17 @@ public class ApiResponse {
         return sgIdNames;
     }
 
+    public ArrayList<String> getThreadsIDsFor(String subgedditID) {
+        ArrayList<Thread> threads = subgeddits.get(subgedditID).threads;
+
+        ArrayList<String> threadsIDs = new ArrayList<>(threads.size());
+        for(Thread thread: threads){
+            threadsIDs.add(thread.id);
+        }
+        return threadsIDs;
+    }
+
     public ArrayList<String> getThreadsTitlesFor(String subgedditID) {
-        Log.e("ApiResponse", subgedditID);
-        Log.e("ApiResponse", "subgeddits is "+subgeddits);
         ArrayList<Thread> threads = subgeddits.get(subgedditID).threads;
 
         ArrayList<String> threadsTitles = new ArrayList<>(threads.size());

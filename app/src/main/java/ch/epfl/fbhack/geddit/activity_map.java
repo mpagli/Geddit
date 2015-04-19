@@ -69,9 +69,6 @@ public class Activity_Map extends ActionBarActivity {
         mAccuracyOverlay = new AccuracyCircleOverlay(getApplicationContext(), getResources().getColor(R.color.gps_track));
         mMap.getOverlays().add(mAccuracyOverlay);
 
-        // This launch the request to the API => function processApiResponse is called when completed
-        new ApiRequester(this).execute();
-
         Drawable marker = getResources().getDrawable(android.R.drawable.star_big_on);
         int markerWidth = marker.getIntrinsicWidth();
         int markerHeight = marker.getIntrinsicHeight();
@@ -82,6 +79,14 @@ public class Activity_Map extends ActionBarActivity {
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+    }
+
+    @Override
+    protected void onResume() {
+        // This launch the request to the API => function processApiResponse is called when completed
+        new ApiRequester(this).execute();
+
+        super.onResume();
     }
 
     private void updateWithNewLocation(Location location) {

@@ -1,6 +1,5 @@
 package ch.epfl.fbhack.geddit.data;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -15,7 +14,6 @@ import java.net.URL;
 
 import ch.epfl.fbhack.geddit.Activity_Main;
 import ch.epfl.fbhack.geddit.Activity_Map;
-import ch.epfl.fbhack.geddit.Activity_Threads;
 
 /**
  * Created by fred on 18/04/15.
@@ -23,29 +21,27 @@ import ch.epfl.fbhack.geddit.Activity_Threads;
  * This class performs the request asynchronously, and call MainActivity.processApiResponse(...)
  * when data has been loaded (and parsed).
  */
-public class ApiRequester extends AsyncTask<Void, Integer, String> {
-
-    private Activity_Main mainActivity;
-    private Activity_Map mapActivity;
-    private Activity_Threads threadsActivity;
+public class ApiRequesterVote extends AsyncTask<Void, Integer, String> {
 
     private static final int TIMEOUT = 15000;
-    private static final String BASE_URL = "http://713f665696.testurl.ws/api/?action=read";
+    private static final String BASE_URL = "http://713f665696.testurl.ws/api/?action=vote";
+    private String subgedditID, threadID, commentID;
+    private boolean upvote;
 
-    public ApiRequester(Activity_Threads threadsActivity){
-        this.threadsActivity = threadsActivity;
-    }
-    public ApiRequester(Activity_Main callingActivity){
-        this.mainActivity = callingActivity;
-    }
-    public ApiRequester(Activity_Map callingActivity){
-        this.mapActivity = callingActivity;
+    public ApiRequesterVote(String subgedditID, String threadID, String commentID, boolean upvote) {
+        super();
+        this.subgedditID = subgedditID;
+        this.threadID = threadID;
+        this.commentID = commentID;
+        this.upvote = upvote;
     }
 
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return getJsonString(BASE_URL, TIMEOUT);
+            String up = "false";
+            if(upvote) up = "on";
+            return getJsonString(BASE_URL+"&subgeddit-id="+subgedditID+"&thread-id="+threadID+"&comment-id="+commentID+"&up="+up, TIMEOUT);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,34 +72,5 @@ public class ApiRequester extends AsyncTask<Void, Integer, String> {
 
         c.disconnect();
         return sb.toString();
-    }
-
-
-    @Override
-    protected void onPostExecute(String jsonString) {
-
-        if(jsonString == null){
-            Toast.makeText(mainActivity.getApplicationContext(), "Something wrong happened",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-        parseData(jsonString);
-        if(mainActivity != null)
-            mainActivity.processApiResponse();
-        else if(mapActivity != null)
-            mapActivity.processApiResponse();
-        else if(threadsActivity != null)
-            threadsActivity.processApiResponse();
-
-    }
-
-    private void parseData(String jsonString) {
-        try {
-            JSONObject jData = new JSONObject(jsonString);
-            JSONObject subgeddits = jData.getJSONObject("subgeddit");
-            ApiResponse.getInstance().setData(subgeddits);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }
