@@ -20,9 +20,9 @@ import ch.epfl.fbhack.geddit.data.ApiResponse;
 public class Activity_Threads extends ActionBarActivity  implements AdapterView.OnItemClickListener{
 
     private String subgedditID;
-    final ArrayList<String> threadsTitles = new ArrayList<>();
-    final ArrayList<String> threadsScores = new ArrayList<>();
-    CustomAdapterThread adapter;
+    private final ArrayList<String> threadsTitles = new ArrayList<>();
+    private final ArrayList<String> threadsScores = new ArrayList<>();
+    private CustomAdapterThread adapter;
 
 
     @Override
@@ -79,14 +79,14 @@ public class Activity_Threads extends ActionBarActivity  implements AdapterView.
 
     public void onUpvote(AdapterView<?> parent, View view, int position, long id) {
         ArrayList<String> threadsIDs = ApiResponse.getInstance().getThreadsIDsFor(subgedditID);
-        new ApiRequesterVote(subgedditID, threadsIDs.get(0), "", true).execute();
+        new ApiRequesterVote(subgedditID, threadsIDs.get(position), "", true).execute();
 
         new ApiRequester(this).execute();
     }
 
     public void onDownvote(AdapterView<?> parent, View view, int position, long id) {
         ArrayList<String> threadsIDs = ApiResponse.getInstance().getThreadsIDsFor(subgedditID);
-        new ApiRequesterVote(subgedditID, threadsIDs.get(0), "", false).execute();
+        new ApiRequesterVote(subgedditID, threadsIDs.get(position), "", false).execute();
 
         new ApiRequester(this).execute();
     }

@@ -7,8 +7,8 @@ package ch.epfl.fbhack.geddit;
 
 import android.content.Context;
 
-public class DevicePixelConverter {
-    final float mDisplayDensity;
+class DevicePixelConverter {
+    private final float mDisplayDensity;
 
     DevicePixelConverter(Context ctx) {
         mDisplayDensity = ctx.getResources().getDisplayMetrics().density;

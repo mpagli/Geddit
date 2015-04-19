@@ -12,10 +12,10 @@ import java.util.ArrayList;
 /**
  * Created by fred on 19/04/15.
  */
-public class CustomAdapterComment extends BaseAdapter {
-    ArrayList<String> commentsBody;
-    ArrayList<String> commentsScores;
-    Activity_Comments activity;
+class CustomAdapterComment extends BaseAdapter {
+    private final ArrayList<String> commentsBody;
+    private final ArrayList<String> commentsScores;
+    private final Activity_Comments activity;
 
     public CustomAdapterComment(Activity_Comments activity, ArrayList<String> commentsBody, ArrayList<String> commentsScores){
         this.activity = activity;
