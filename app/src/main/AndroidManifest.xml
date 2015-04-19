@@ -20,6 +20,10 @@
             android:label="@string/title_activity_subgeddit">
         </activity>
         <activity
+            android:name=".Activity_Comments"
+            android:label="@string/title_activity_subgeddit">
+        </activity>
+        <activity
             android:name=".Activity_Map"
             android:label="@string/title_activity_activity_map">
         </activity>

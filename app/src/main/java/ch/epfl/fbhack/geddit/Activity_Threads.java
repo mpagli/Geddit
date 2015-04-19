@@ -1,8 +1,8 @@
 package ch.epfl.fbhack.geddit;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,36 +13,33 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class Activity_Comments extends ActionBarActivity{//®  implements AdapterView.OnItemClickListener{
+public class Activity_Threads extends ActionBarActivity  implements AdapterView.OnItemClickListener{
 
     private int subgedditIndex;
-    private int threadIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_threads); // Same simple list for now
+        setContentView(R.layout.activity_threads);
 
         subgedditIndex = getIntent().getIntExtra("subgedditIndex", 0);
-        threadIndex = getIntent().getIntExtra("threadIndex", 0);
-        buildCommentsList();
+        buildThreadsList();
     }
 
-    private void buildCommentsList() {
+    private void buildThreadsList() {
 
-        ArrayList<String> commmentsTitles = Activity_Main.data.getCommentsTitlesFor(subgedditIndex, threadIndex);
+        ArrayList<String> threadsTitles = Activity_Main.data.getThreadsTitlesFor(subgedditIndex);
 
 //        Toast.makeText(this, threadsTitles.get(0), Toast.LENGTH_SHORT).show();
 
-
         //build adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, commmentsTitles);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.thread_item, threadsTitles);
 
         //configure the list view
         ListView list = (ListView) findViewById(R.id.threads_list);
         list.setAdapter(adapter);
 
-//        list.setOnItemClickListener(this);
+        list.setOnItemClickListener(this);
     }
 
     @Override
@@ -67,11 +64,11 @@ public class Activity_Comments extends ActionBarActivity{//®  implements Adapte
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//        Intent intent = new Intent(Activity_Comments.this, Activity_Comments.class);
-//        intent.putExtra("subgedditIndex", position);
-//        startActivity(intent);
-//    }
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(Activity_Threads.this, Activity_Comments.class);
+        intent.putExtra("subgedditIndex", subgedditIndex);
+        intent.putExtra("threadIndex", position);
+        startActivity(intent);
+    }
 }
