@@ -55,7 +55,8 @@ public class Activity_Add extends Activity implements View.OnClickListener {
 
 //        // TODO uncomment for debugging
 //        TextView requestView = (TextView) findViewById(R.id.request);
-//        String a = (new ApiAdder(subgedditId, null, commentTitle, commentBody)).formUrl();
+        String a = (new ApiAdder(subgedditId, null, commentTitle, commentBody)).formUrl();
+        Log.e("URL", a);
 //        requestView.setText(a);
 
         finish();

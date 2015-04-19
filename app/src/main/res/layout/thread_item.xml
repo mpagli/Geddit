@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Title"
+        android:textSize="26sp"
         android:id="@+id/title"
         android:layout_weight="1" />
 
@@ -17,7 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/score"
-        android:id="@+id/score" />
+        android:textSize="26sp"
+        android:id="@+id/score"
+        android:textColor="@android:color/darker_gray"
+        android:textStyle="italic" />
 
     <Button
         android:layout_width="40dp"

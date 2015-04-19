@@ -40,6 +40,7 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
     }
 
     private void buildSubgedditsList() {
+        sgIDs.clear();
         sgNames.clear();
         sgDistances.clear();
 

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import ch.epfl.fbhack.geddit.Activity_Main;
 import ch.epfl.fbhack.geddit.Activity_Map;
@@ -51,12 +52,12 @@ public class ApiAdder extends AsyncTask<Void, Integer, Void> {
     }
 
     public String formUrl() {
-        String url = BASE_URL + "&subgeddit-id="+subgedditId;
+        String url = BASE_URL + "&subgeddit-id="+subgedditId+"&thread-id=";
         if(threadId != null) {
-            url += "&thread-id=" + threadId;
+            url += threadId;
         }
-        url += "&comment-title="+commentTitle;
-        url += "&comment-body="+commentBody;
+        url += "&comment-title="+ URLEncoder.encode(commentTitle);
+        url += "&comment-body="+URLEncoder.encode(commentBody);
 
         return url;
     }

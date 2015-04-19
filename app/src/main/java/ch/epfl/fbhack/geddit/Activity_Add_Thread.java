@@ -5,6 +5,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,6 +50,9 @@ public class Activity_Add_Thread extends Activity implements View.OnClickListene
 //        TextView requestView = (TextView) findViewById(R.id.request);
 //        String a = (new ApiAdder(subgedditId, null, commentTitle, commentBody)).formUrl();
 //        requestView.setText(a);
+        String a = (new ApiAdder(subgedditId, null, commentTitle, commentBody)).formUrl();
+        Log.e("URL", a);
+
 
         finish();
     }

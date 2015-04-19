@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:textSize="14sp"
         android:layout_height="wrap_content"
         android:text="bla bla bla bla bla bla bla bla bla bla bla"
         android:id="@+id/body"
@@ -37,11 +38,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingRight="8dp"
         android:text="132"
+        android:textSize="16sp"
         android:id="@+id/score"
         android:layout_below="@+id/downvote"
         android:layout_toEndOf="@+id/textView"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25dp"
+        android:textColor="@android:color/darker_gray"
+        android:textStyle="italic" />
 
     <TextView
         android:layout_width="wrap_content"

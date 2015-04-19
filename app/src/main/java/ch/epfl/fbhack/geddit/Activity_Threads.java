@@ -39,6 +39,14 @@ public class Activity_Threads extends ActionBarActivity  implements AdapterView.
         buildThreadsList();
     }
 
+    @Override
+    protected void onResume() {
+        // This launch the request to the API => function processApiResponse is called when completed
+        new ApiRequester(this).execute();
+
+        super.onResume();
+    }
+
     private void buildThreadsList() {
         threadsTitles.clear();
         threadsTitles.addAll(ApiResponse.getInstance().getThreadsTitlesFor(subgedditID));
