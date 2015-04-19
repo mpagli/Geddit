@@ -4,10 +4,26 @@ Reddit is a set of subreddit, each subreddit being a thread containing several d
 
 # Screenshots
 
+## Main activity of the application
+
+Shows all the sub-geddits around the user
+
 ![](screenshots/main.png)
+
+## Map view
+
+Map visualization of the same data
 
 ![](screenshots/map.png)
 
+## Threads for a given location
+
+Shows all the conversations for the given subgeddit (~place)
+
 ![](screenshots/subgeddit.png)
 
-![](screenshots/thread.png)
+## Thread view
+
+Shows the full thread
+
+![](screenshots/topic.png)
