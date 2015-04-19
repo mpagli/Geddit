@@ -20,5 +20,6 @@
     <string name="score">Score</string>
     <string name="plusSign">+</string>
     <string name="minusSign">-</string>
+    <string name="score_is">score:</string>
 
 </resources>

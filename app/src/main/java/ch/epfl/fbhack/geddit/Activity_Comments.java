@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class Activity_Comments extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_threads); // Same simple list for now
+        setContentView(R.layout.activity_comments); // Same simple list for now
 
         subgedditID = getIntent().getStringExtra("subgedditID");
         threadIndex = getIntent().getIntExtra("threadIndex", 0);
@@ -30,16 +31,31 @@ public class Activity_Comments extends ActionBarActivity{
     private void buildCommentsList() {
 
         ArrayList<String> commmentsTitles = ApiResponse.getInstance().getCommentsTitlesFor(subgedditID, threadIndex);
+        ArrayList<String> commmentsBodies = ApiResponse.getInstance().getCommentsBodyFor(subgedditID, threadIndex);
+        ArrayList<String> commmentsScores = ApiResponse.getInstance().getCommentsScoreFor(subgedditID, threadIndex);
+
+        String firstComment_title = commmentsTitles.get(0);
+        String firstComment_body = commmentsBodies.get(0);
+
+        commmentsTitles.remove(0);
+        commmentsBodies.remove(0);
+        commmentsScores.remove(0);
 
 //        Toast.makeText(this, threadsTitles.get(0), Toast.LENGTH_SHORT).show();
 
+        TextView tv1 = (TextView) findViewById(R.id.firstComment_title);
+        tv1.setText(firstComment_title);
+
+        TextView tv2 = (TextView) findViewById(R.id.firstComment_body);
+        tv2.setText(firstComment_body);
 
         //build adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, commmentsTitles);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, commmentsBodies);
 
         //configure the list view
-        ListView list = (ListView) findViewById(R.id.threads_list);
+        ListView list = (ListView) findViewById(R.id.comments_list);
         list.setAdapter(adapter);
+        list.setAdapter(new CustomAdapterComment(this, commmentsBodies, commmentsScores));
 
 //        list.setOnItemClickListener(this);
     }

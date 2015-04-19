@@ -96,6 +96,24 @@ public class ApiResponse {
         return commentsTitles;
     }
 
+    public ArrayList<String> getCommentsBodyFor(String subgedditIndex, int threadIndex) {
+        ArrayList<Comment> comments = subgeddits.get(subgedditIndex).threads.get(threadIndex).comments;
+
+        ArrayList<String> commentsBodies = new ArrayList<>(comments.size());
+        for(Comment comment:comments){
+            commentsBodies.add(comment.body);
+        }
+        return commentsBodies;
+    }
+
+    public ArrayList<String> getCommentsScoreFor(String subgedditIndex, int threadIndex) {
+        ArrayList<Comment> comments = subgeddits.get(subgedditIndex).threads.get(threadIndex).comments;
+        ArrayList<String> scores = new ArrayList<String>();
+        for(Comment comment:comments){
+            scores.add(((Integer)(comment.upvote-comment.downvote)).toString());
+        }
+        return scores;
+    }
 
     // ##################  Private container classes  ##################
     private class Subgeddit {
