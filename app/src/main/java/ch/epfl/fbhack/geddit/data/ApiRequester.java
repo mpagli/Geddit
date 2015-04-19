@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import ch.epfl.fbhack.geddit.Geddit_main;
+import ch.epfl.fbhack.geddit.Activity_List;
 
 /**
  * Created by fred on 18/04/15.
@@ -24,12 +24,12 @@ import ch.epfl.fbhack.geddit.Geddit_main;
  */
 public class ApiRequester extends AsyncTask<Void, Integer, String> {
 
-    private Geddit_main mainActivity;
+    private Activity_List mainActivity;
 
     private static final int TIMEOUT = 15000;
     private static final String BASE_URL = "http://713f665696.testurl.ws/api/?action=read";
 
-    public ApiRequester(Geddit_main mainActivity){
+    public ApiRequester(Activity_List mainActivity){
         this.mainActivity = mainActivity;
     }
 

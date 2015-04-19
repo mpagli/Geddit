@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ch.epfl.fbhack.geddit.activity_map"
+    tools:context="ch.epfl.fbhack.geddit.Activity_Map"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">

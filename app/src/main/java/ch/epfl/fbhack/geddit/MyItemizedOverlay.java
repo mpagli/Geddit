@@ -20,6 +20,8 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
+import ch.epfl.fbhack.geddit.data.Subgeddit;
+
 public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
     private ArrayList<OverlayItem> overlayItemList = new ArrayList<OverlayItem>();
@@ -36,7 +38,7 @@ public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
     @Override
     protected boolean onTap(int index) {
 
-        Intent intent = new Intent(context, subgeddit.class);
+        Intent intent = new Intent(context, Subgeddit.class);
         intent.putExtra("geddit-id", overlayItemList.get(index).getTitle());
         context.startActivity(intent);
 

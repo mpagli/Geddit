@@ -8,15 +8,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Geddit_main"
+            android:name=".Activity_List"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".subgeddit"
+            android:name=".Activity_Subgeddit"
             android:label="@string/title_activity_subgeddit">
         </activity>
         <activity
-            android:name=".activity_map"
+            android:name=".Activity_Map"
             android:label="@string/title_activity_activity_map">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

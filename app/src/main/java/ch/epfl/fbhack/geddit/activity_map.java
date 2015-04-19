@@ -1,7 +1,6 @@
 package ch.epfl.fbhack.geddit;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,7 +20,7 @@ import org.osmdroid.views.overlay.OverlayItem;
 import java.util.ArrayList;
 
 
-public class activity_map extends ActionBarActivity {
+public class Activity_Map extends ActionBarActivity {
 
     private MapView mMap;
     private AccuracyCircleOverlay mAccuracyOverlay;
@@ -126,7 +125,7 @@ public class activity_map extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if(id == R.id.action_list) {
-            Intent intent = new Intent(activity_map.this, Geddit_main.class);
+            Intent intent = new Intent(Activity_Map.this, Activity_List.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
