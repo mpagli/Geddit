@@ -1,5 +1,6 @@
 package ch.epfl.fbhack.geddit.data;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import ch.epfl.fbhack.geddit.Activity_Main;
+import ch.epfl.fbhack.geddit.Activity_Map;
 
 /**
  * Created by fred on 18/04/15.
@@ -23,12 +25,16 @@ import ch.epfl.fbhack.geddit.Activity_Main;
 public class ApiRequester extends AsyncTask<Void, Integer, String> {
 
     private Activity_Main mainActivity;
+    private Activity_Map mapActivity;
 
     private static final int TIMEOUT = 15000;
     private static final String BASE_URL = "http://713f665696.testurl.ws/api/?action=read";
 
-    public ApiRequester(Activity_Main mainActivity){
-        this.mainActivity = mainActivity;
+    public ApiRequester(Activity_Main callingActivity){
+        this.mainActivity = callingActivity;
+    }
+    public ApiRequester(Activity_Map callingActivity){
+        this.mapActivity = callingActivity;
     }
 
     @Override
@@ -77,7 +83,10 @@ public class ApiRequester extends AsyncTask<Void, Integer, String> {
         }
 
         parseData(jsonString);
-        mainActivity.processApiResponse();
+        if(mainActivity != null)
+            mainActivity.processApiResponse();
+        else
+            mapActivity.processApiResponse();
     }
 
     private void parseData(String jsonString) {

@@ -50,6 +50,11 @@ public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
         populate();
     }
 
+    public void clear() {
+        overlayItemList.clear();
+        populate();
+    }
+
     @Override
     protected OverlayItem createItem(int i) {
         // TODO Auto-generated method stub

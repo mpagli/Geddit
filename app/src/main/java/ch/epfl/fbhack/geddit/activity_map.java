@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.osmdroid.util.GeoPoint;
@@ -18,12 +20,18 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import ch.epfl.fbhack.geddit.data.ApiRequester;
+import ch.epfl.fbhack.geddit.data.ApiResponse;
 
 
 public class Activity_Map extends ActionBarActivity {
 
     private MapView mMap;
     private AccuracyCircleOverlay mAccuracyOverlay;
+    private MyItemizedOverlay myItemizedOverlay;
 
     private LocationManager locationManager;
     MapController mapController;
@@ -61,18 +69,16 @@ public class Activity_Map extends ActionBarActivity {
         mAccuracyOverlay = new AccuracyCircleOverlay(getApplicationContext(), getResources().getColor(R.color.gps_track));
         mMap.getOverlays().add(mAccuracyOverlay);
 
-        Drawable marker=getResources().getDrawable(android.R.drawable.star_big_on);
+        // This launch the request to the API => function processApiResponse is called when completed
+        new ApiRequester(this).execute();
+
+        Drawable marker = getResources().getDrawable(android.R.drawable.star_big_on);
         int markerWidth = marker.getIntrinsicWidth();
         int markerHeight = marker.getIntrinsicHeight();
         marker.setBounds(0, markerHeight, markerWidth, 0);
 
-        MyItemizedOverlay myItemizedOverlay = new MyItemizedOverlay(marker, this);
+        myItemizedOverlay = new MyItemizedOverlay(marker, this);
         mMap.getOverlays().add(myItemizedOverlay);
-
-        GeoPoint myPoint1 = new GeoPoint(45.42100, 4.42100);
-        myItemizedOverlay.addItem(myPoint1, "45.42100,4.42100", "45.42100,4.42100");
-        GeoPoint myPoint2 = new GeoPoint(46.52017, 6.63635);
-        myItemizedOverlay.addItem(myPoint2, "46.52017,6.63635", "46.52017,6.63635");
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
@@ -99,13 +105,30 @@ public class Activity_Map extends ActionBarActivity {
 
     public void setUserPositionAt(Location location) {
         mAccuracyOverlay.setLocation(location);
-        setCenterAndZoom(new GeoPoint(location), 16);
+        setCenterAndZoom(new GeoPoint(location), 12);
     }
 
     private void setCenterAndZoom(GeoPoint loc, int zoom) {
         mMap.getController().setZoom(zoom);
         mMap.getController().setCenter(loc);
     }
+
+    public void processApiResponse() {
+        HashMap<String, String> subgeddits = ApiResponse.getInstance().getSubgedditNames();
+
+        // Build the marker layer
+        myItemizedOverlay.clear();
+        Iterator<String> keySetIterator = subgeddits.keySet().iterator();
+        while(keySetIterator.hasNext()){
+            String key = keySetIterator.next();
+            int index = key.indexOf(',');
+            Float lat = Float.parseFloat(key.substring(0, index));
+            Float lon = Float.parseFloat(key.substring(index+1, key.length()));
+            GeoPoint myPoint = new GeoPoint(lat, lon);
+            myItemizedOverlay.addItem(myPoint, key, key);
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,6 +151,8 @@ public class Activity_Map extends ActionBarActivity {
             Intent intent = new Intent(Activity_Map.this, Activity_Main.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+        } else if(id==R.id.action_refresh) {
+            new ApiRequester(this).execute();
         }
 
         return super.onOptionsItemSelected(item);

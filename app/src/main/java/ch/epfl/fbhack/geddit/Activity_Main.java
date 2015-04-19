@@ -46,12 +46,14 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if(id==R.id.action_map){
+        if(id==R.id.action_map) {
             Intent intent = new Intent(Activity_Main.this, Activity_Map.class);
             startActivity(intent );
-        }else if(id==R.id.action_add){
+        } else if(id==R.id.action_add) {
             Intent intent = new Intent(Activity_Main.this, Activity_Add.class);
             startActivity(intent );
+        } else if(id==R.id.action_refresh) {
+            new ApiRequester(this).execute();
         }
 
         return super.onOptionsItemSelected(item);
