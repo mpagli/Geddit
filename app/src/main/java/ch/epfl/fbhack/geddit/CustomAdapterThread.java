@@ -13,10 +13,10 @@ import java.util.ArrayList;
 /**
  * Created by fred on 19/04/15.
  */
-public class CustomAdapterThread extends BaseAdapter {
-    final ArrayList<String> threadsTitles;
-    final ArrayList<String> threadsScores;
-    final Activity_Threads activity;
+class CustomAdapterThread extends BaseAdapter {
+    private final ArrayList<String> threadsTitles;
+    private final ArrayList<String> threadsScores;
+    private final Activity_Threads activity;
 
     public CustomAdapterThread(Activity_Threads activity, ArrayList<String> threadsTitles, ArrayList<String> threadsScores){
         this.activity = activity;

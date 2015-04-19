@@ -33,8 +33,7 @@ public class Activity_Map extends ActionBarActivity {
     private AccuracyCircleOverlay mAccuracyOverlay;
     private MyItemizedOverlay myItemizedOverlay;
 
-    private LocationManager locationManager;
-    MapController mapController;
+    private MapController mapController;
 
     private final LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
@@ -76,7 +75,7 @@ public class Activity_Map extends ActionBarActivity {
         myItemizedOverlay = new MyItemizedOverlay(marker, this);
         mMap.getOverlays().add(myItemizedOverlay);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
 
@@ -99,7 +98,7 @@ public class Activity_Map extends ActionBarActivity {
         }
     }
 
-    public void setUserPositionAt(Location location) {
+    private void setUserPositionAt(Location location) {
         mAccuracyOverlay.setLocation(location);
         setCenterAndZoom(new GeoPoint(location), 12);
     }
