@@ -1,43 +1,67 @@
 package ch.epfl.fbhack.geddit.data;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by fred on 19/04/15.
  */
 public class ApiResponse {
 
-    private ArrayList<Subgeddit> subgeddits;
+    private static ApiResponse instance;
 
-//    private ArrayList<JSONObject> threads;
+    private static Map<String, Subgeddit> subgeddits = new HashMap<>();
 
-    public ApiResponse(JSONObject response){
-        subgeddits = new ArrayList<>(response.length());
+    public synchronized static ApiResponse getInstance() {
+        if (instance==null)
+        {
+            instance = new ApiResponse();
+            Log.w("ApiResponse", "ApiResponse Class Object created!");
+        }
+        else{
+            Log.w("ApiResponse", "ApiResponse Class Object not created just returned existing one!");
+        }
+        return instance;
+    }
 
+    public void setData(JSONObject response){
         Iterator<String> sgIt = response.keys();
         while (sgIt.hasNext()) {
             String latLng = sgIt.next();
             JSONObject jSubgeddit = response.optJSONObject(latLng);
             Subgeddit subgeddit = new Subgeddit(latLng, jSubgeddit);
-            subgeddits.add(subgeddit);
+            subgeddits.put(latLng, subgeddit);
         }
     }
 
     // ##################  Getters  ##################
-    public ArrayList<String> getSubgedditNames() {
-        ArrayList<String> sgNames = new ArrayList<>(subgeddits.size());
-        for(Subgeddit sg:subgeddits){
-            sgNames.add(sg.name);
+    public HashMap<String, String> getSubgedditNames() {
+        HashMap<String, String> sgIdNames = new HashMap<>();
+
+        // Create simple HashMap of latLon <-> Title
+        Iterator<String> keySetIterator = subgeddits.keySet().iterator();
+        while(keySetIterator.hasNext()){
+            String latLon = keySetIterator.next();
+            sgIdNames.put(latLon, subgeddits.get(latLon).name);
         }
-        return sgNames;
+
+        return sgIdNames;
     }
 
-    public ArrayList<String> getThreadsTitlesFor(int subgedditIndex) {
-        ArrayList<Thread> threads = subgeddits.get(subgedditIndex).threads;
+    public ArrayList<String> getThreadsTitlesFor(String subgedditID) {
+        Log.e("ApiResponse", subgedditID);
+        Log.e("ApiResponse", "subgeddits is "+subgeddits);
+        ArrayList<Thread> threads = subgeddits.get(subgedditID).threads;
 
         ArrayList<String> threadsTitles = new ArrayList<>(threads.size());
         for(Thread thread:threads){
@@ -46,7 +70,7 @@ public class ApiResponse {
         return threadsTitles;
     }
 
-    public ArrayList<String> getThreadsScoresFor(int subgedditIndex) {
+    public ArrayList<String> getThreadsScoresFor(String subgedditIndex) {
         ArrayList<Thread> threads = subgeddits.get(subgedditIndex).threads;
 
         ArrayList<String> threadsScores = new ArrayList<>(threads.size());

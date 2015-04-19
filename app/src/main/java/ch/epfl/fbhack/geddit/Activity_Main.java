@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import ch.epfl.fbhack.geddit.data.ApiRequester;
 import ch.epfl.fbhack.geddit.data.ApiResponse;
@@ -19,7 +21,8 @@ import ch.epfl.fbhack.geddit.data.ApiResponse;
 public class Activity_Main extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
     // Loaded at the beginning (and when refreshing) => check if null
-    public static ApiResponse data = null;
+    private ArrayList<String> sgIDs = new ArrayList<>();
+    private ArrayList<String> sgNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +58,22 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
     }
 
     // Called by ApiRequester when the request has been completed
-    public void processApiResponse(ApiResponse data) {
-        // Save data in global variable (BAD!!!)
-        Activity_Main.data = data;
-
+    public void processApiResponse() {
         // Build the view
         buildSgList();
     }
 
     private void buildSgList() {
-        ArrayList<String> sgNames = data.getSubgedditNames();
+        HashMap<String, String> subgeddits = ApiResponse.getInstance().getSubgedditNames();
 
-        //build adapter
+        // Build adapter
+        sgNames.clear();
+        Iterator<String> keySetIterator = subgeddits.keySet().iterator();
+        while(keySetIterator.hasNext()){
+            String key = keySetIterator.next();
+            sgIDs.add(key);
+            sgNames.add(subgeddits.get(key));
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sgNames);
 
         //configure the list view
@@ -80,7 +87,7 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Intent intent = new Intent(Activity_Main.this, Activity_Threads.class);
-        intent.putExtra("subgedditIndex", position);
+        intent.putExtra("subgeddit-id", sgIDs.get(position));
         startActivity(intent);
     }
 }

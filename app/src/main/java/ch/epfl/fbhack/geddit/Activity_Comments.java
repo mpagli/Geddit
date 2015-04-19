@@ -9,6 +9,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import ch.epfl.fbhack.geddit.data.ApiResponse;
+
 
 public class Activity_Comments extends ActionBarActivity{
 
@@ -27,7 +29,7 @@ public class Activity_Comments extends ActionBarActivity{
 
     private void buildCommentsList() {
 
-        ArrayList<String> commmentsTitles = Activity_Main.data.getCommentsTitlesFor(subgedditIndex, threadIndex);
+        ArrayList<String> commmentsTitles = ApiResponse.getInstance().getCommentsTitlesFor(subgedditIndex, threadIndex);
 
 //        Toast.makeText(this, threadsTitles.get(0), Toast.LENGTH_SHORT).show();
 

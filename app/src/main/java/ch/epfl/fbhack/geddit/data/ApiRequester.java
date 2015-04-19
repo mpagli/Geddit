@@ -76,22 +76,17 @@ public class ApiRequester extends AsyncTask<Void, Integer, String> {
                     Toast.LENGTH_SHORT).show();
         }
 
-        ApiResponse apiResponse = parseData(jsonString);
-
-        mainActivity.processApiResponse(apiResponse);
+        parseData(jsonString);
+        mainActivity.processApiResponse();
     }
 
-    private ApiResponse parseData(String jsonString) {
-
+    private void parseData(String jsonString) {
         try {
             JSONObject jData = new JSONObject(jsonString);
             JSONObject subgeddits = jData.getJSONObject("subgeddit");
-
-            return new ApiResponse(subgeddits);
-
+            ApiResponse.getInstance().setData(subgeddits);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
     }
 }

@@ -36,10 +36,10 @@ public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
     @Override
     protected boolean onTap(int index) {
-// TODO
-//        Intent intent = new Intent(context, Subgeddit.class);
-//        intent.putExtra("geddit-id", overlayItemList.get(index).getTitle());
-//        context.startActivity(intent);
+
+        Intent intent = new Intent(context, Activity_Threads.class);
+        intent.putExtra("geddit-id", overlayItemList.get(index).getTitle());
+        context.startActivity(intent);
 
         return true;
     }
