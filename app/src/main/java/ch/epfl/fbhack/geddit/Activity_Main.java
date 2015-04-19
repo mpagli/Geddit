@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,12 +22,44 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
     // Loaded at the beginning (and when refreshing) => check if null
     private final ArrayList<String> sgIDs = new ArrayList<>();
     private final ArrayList<String> sgNames = new ArrayList<>();
+    private final ArrayList<String> sgDistances = new ArrayList<>();
+    private CustomAdapterSubgeddit adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ListView list = (ListView) findViewById(R.id.subgeddits_list);
+        adapter = new CustomAdapterSubgeddit(this, sgNames, sgDistances);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(this);
+
+        buildSubgedditsList();
+
     }
+
+    private void buildSubgedditsList() {
+        sgNames.clear();
+        sgDistances.clear();
+
+        HashMap<String, String> subgeddits = ApiResponse.getInstance().getSubgedditNames();
+
+        // Build adapter
+        Iterator<String> keySetIterator = subgeddits.keySet().iterator();
+        while(keySetIterator.hasNext()){
+            String key = keySetIterator.next();
+            sgIDs.add(key);
+            sgNames.add(subgeddits.get(key));
+        }
+
+        for(int i=0; i<sgNames.size(); i++) {
+            sgDistances.add(""+(int)(Math.random()*200)+"m");
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     protected void onResume() {
@@ -67,28 +98,9 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
     // Called by ApiRequester when the request has been completed
     public void processApiResponse() {
         // Build the view
-        buildSgList();
+        buildSubgedditsList();
     }
 
-    private void buildSgList() {
-        HashMap<String, String> subgeddits = ApiResponse.getInstance().getSubgedditNames();
-
-        // Build adapter
-        sgNames.clear();
-        Iterator<String> keySetIterator = subgeddits.keySet().iterator();
-        while(keySetIterator.hasNext()){
-            String key = keySetIterator.next();
-            sgIDs.add(key);
-            sgNames.add(subgeddits.get(key));
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sgNames);
-
-        //configure the list view
-        ListView list = (ListView) findViewById(R.id.subgeddits_list);
-        list.setAdapter(adapter);
-
-        list.setOnItemClickListener(this);
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
