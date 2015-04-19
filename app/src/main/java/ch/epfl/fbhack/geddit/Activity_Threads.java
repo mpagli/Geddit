@@ -29,15 +29,11 @@ public class Activity_Threads extends ActionBarActivity  implements AdapterView.
     private void buildThreadsList() {
 
         ArrayList<String> threadsTitles = Activity_Main.data.getThreadsTitlesFor(subgedditIndex);
-
-//        Toast.makeText(this, threadsTitles.get(0), Toast.LENGTH_SHORT).show();
-
-        //build adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.thread_item, threadsTitles);
+        ArrayList<String> threadsScores = Activity_Main.data.getThreadsScoresFor(subgedditIndex);
 
         //configure the list view
         ListView list = (ListView) findViewById(R.id.threads_list);
-        list.setAdapter(adapter);
+        list.setAdapter(new CustomAdapterThread(this, threadsTitles, threadsScores));
 
         list.setOnItemClickListener(this);
     }

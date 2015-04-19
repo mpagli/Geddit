@@ -46,6 +46,16 @@ public class ApiResponse {
         return threadsTitles;
     }
 
+    public ArrayList<String> getThreadsScoresFor(int subgedditIndex) {
+        ArrayList<Thread> threads = subgeddits.get(subgedditIndex).threads;
+
+        ArrayList<String> threadsScores = new ArrayList<>(threads.size());
+        for(Thread thread:threads){
+            threadsScores.add(String.valueOf(thread.upvote - thread.downvote));
+        }
+        return threadsScores;
+    }
+
     public ArrayList<String> getCommentsTitlesFor(int subgedditIndex, int threadIndex) {
         ArrayList<Comment> comments = subgeddits.get(subgedditIndex).threads.get(threadIndex).comments;
 
@@ -55,7 +65,6 @@ public class ApiResponse {
         }
         return commentsTitles;
     }
-
 
 
     // ##################  Private container classes  ##################
