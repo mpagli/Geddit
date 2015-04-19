@@ -10,25 +10,43 @@ import java.util.Iterator;
  * Created by fred on 19/04/15.
  */
 public class ApiResponse {
-    private static final String NAME = "name";
 
-    private final JSONObject response;
+    private ArrayList<String> sgNames;
+    private ArrayList<JSONObject> threads;
 
     public ApiResponse(JSONObject response){
-        this.response = response;
+
+        sgNames = new ArrayList<>(response.length());
+        threads = new ArrayList<>(response.length());
+
+        Iterator<String> sgIt = response.keys();
+        while (sgIt.hasNext()) {
+            JSONObject subgeddit = response.optJSONObject(sgIt.next());
+
+            sgNames.add(subgeddit.optString("name"));
+            threads.add(subgeddit.optJSONObject("thread"));
+        }
     }
 
     public ArrayList<String> getSgNames() {
-        ArrayList<String> list = new ArrayList<>(response.length());
+        return sgNames;
+    }
 
-        Iterator<String> keysIt = response.keys();
-        while (keysIt.hasNext()) {
-            JSONObject subgeddit = response.optJSONObject(keysIt.next());
-            list.add(subgeddit.optString(NAME));
+    public ArrayList<String> getThreadsTitlesFor(int position) {
 
+        JSONObject sgThreads = threads.get(position);
+
+        ArrayList<String> threadsTitles = new ArrayList<>(sgThreads.length());
+
+        Iterator<String> threadsIts = sgThreads.keys();
+        while(threadsIts.hasNext()){
+            String threadId = threadsIts.next();
+            String threadTitle = sgThreads.optJSONObject(threadId).optString("title");
+
+            threadsTitles.add(threadTitle);
         }
 
-        return list;
+        return threadsTitles;
     }
 
 //    Iterator<String> keysIt = jSubgeddits.keys();

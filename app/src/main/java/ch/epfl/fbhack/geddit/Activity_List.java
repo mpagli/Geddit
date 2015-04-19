@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,7 +24,7 @@ public class Activity_List extends ActionBarActivity implements AdapterView.OnIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_geddit_main);
+        setContentView(R.layout.activity_list);
 
         // This launch the request to the API => function processApiResponse is called when completed
         new ApiRequester(this).execute();
@@ -69,10 +68,10 @@ public class Activity_List extends ActionBarActivity implements AdapterView.OnIt
         ArrayList<String> sgNames = data.getSgNames();
 
         //build adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.subgeddit_list_item, sgNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sgNames);
 
         //configure the list view
-        ListView list = (ListView) findViewById(R.id.listView_main_subgeddit);
+        ListView list = (ListView) findViewById(R.id.subgeddits_list);
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(this);
@@ -80,6 +79,11 @@ public class Activity_List extends ActionBarActivity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Intent intent = new Intent(Activity_List.this, Activity_Subgeddit.class);
+        intent.putExtra("position", position);
+        startActivity(intent);
+
         // TODO Not working yet (=> then launch new activity)
 //        Toast.makeText(this.getApplicationContext(), position,
 //                Toast.LENGTH_SHORT).show();

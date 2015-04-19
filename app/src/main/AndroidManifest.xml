@@ -10,6 +10,10 @@
         <activity
             android:name=".Activity_List"
             android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activity_Subgeddit"
@@ -18,10 +22,6 @@
         <activity
             android:name=".Activity_Map"
             android:label="@string/title_activity_activity_map">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

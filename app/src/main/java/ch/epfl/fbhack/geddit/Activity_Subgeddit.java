@@ -1,11 +1,14 @@
 package ch.epfl.fbhack.geddit;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class Activity_Subgeddit extends ActionBarActivity {
@@ -15,12 +18,25 @@ public class Activity_Subgeddit extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subgeddit);
 
-        Intent intent = getIntent();
-        String toast = "No extras in the Intent!";
-        if(intent != null) {
-            toast = intent.getStringExtra("geddit-id");
-        }
-        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
+        int position = getIntent().getIntExtra("position", 0);
+        buildThreadsList(position);
+    }
+
+    private void buildThreadsList(int position) {
+
+        ArrayList<String> threadsTitles = Activity_List.data.getThreadsTitlesFor(position);
+
+        Toast.makeText(this, threadsTitles.get(0), Toast.LENGTH_SHORT).show();
+
+
+        //build adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.thread_item, threadsTitles);
+
+        //configure the list view
+        ListView list = (ListView) findViewById(R.id.threads_list);
+        list.setAdapter(adapter);
+
+//        list.setOnItemClickListener(this);
     }
 
     @Override
