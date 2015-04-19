@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -12,10 +14,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ch.epfl.fbhack.geddit.data.ApiRequester;
-import ch.epfl.fbhack.geddit.data.Subgeddit;
+import ch.epfl.fbhack.geddit.data.ApiResponse;
 
 
-public class Activity_List extends ActionBarActivity {
+public class Activity_List extends ActionBarActivity implements AdapterView.OnItemClickListener {
+
+    // Loaded at the beginning (and when refreshing) => check if null
+    public static ApiResponse data = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +29,6 @@ public class Activity_List extends ActionBarActivity {
 
         // This launch the request to the API => function processApiResponse is called when completed
         new ApiRequester(this).execute();
-
-        populateListViewSubgeddit();
-    }
-
-    private void populateListViewSubgeddit() {
-        //create list of items
-        String[] myItems = {"EPFL hackathon, 1m", "Indian restaurant, 20m", "IC Library, 2m"};
-
-        //build adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.subgeddit_list_item, myItems);
-
-        //configure the list view
-        ListView list = (ListView) findViewById(R.id.listView_main_subgeddit);
-        list.setAdapter(adapter);
     }
 
     @Override
@@ -59,21 +50,40 @@ public class Activity_List extends ActionBarActivity {
             return true;
         } else if(id==R.id.action_map){
             Intent intent = new Intent(Activity_List.this, Activity_Map.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivity(intent );
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     // Called by ApiRequester when the request has been completed
-    public void processApiResponse(ArrayList<Subgeddit> subgedditsList) {
+    public void processApiResponse(ApiResponse data) {
+        // Save data in global variable (BAD!!!)
+        Activity_List.data = data;
 
-        Toast.makeText(getApplicationContext(), subgedditsList.get(0).getLatLng(),
-                Toast.LENGTH_SHORT).show();
+        // Build the view
+        buildSgList();
+    }
 
-        Toast.makeText(getApplicationContext(), subgedditsList.get(0).getName(),
-                Toast.LENGTH_SHORT).show();
+    private void buildSgList() {
+        ArrayList<String> sgNames = data.getSgNames();
+
+        //build adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.subgeddit_list_item, sgNames);
+
+        //configure the list view
+        ListView list = (ListView) findViewById(R.id.listView_main_subgeddit);
+        list.setAdapter(adapter);
+
+        list.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // TODO Not working yet (=> then launch new activity)
+//        Toast.makeText(this.getApplicationContext(), position,
+//                Toast.LENGTH_SHORT).show();
+
     }
 }
 

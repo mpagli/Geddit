@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import ch.epfl.fbhack.geddit.Activity_List;
 
@@ -78,34 +76,18 @@ public class ApiRequester extends AsyncTask<Void, Integer, String> {
                     Toast.LENGTH_SHORT).show();
         }
 
-        ArrayList<Subgeddit> subgedditsList = parseData(jsonString);
+        ApiResponse apiResponse = parseData(jsonString);
 
-        mainActivity.processApiResponse(subgedditsList);
+        mainActivity.processApiResponse(apiResponse);
     }
 
-    private ArrayList<Subgeddit> parseData(String jsonString) {
-
-        ArrayList<Subgeddit> subgedditsArray = null;
+    private ApiResponse parseData(String jsonString) {
 
         try {
             JSONObject jData = new JSONObject(jsonString);
-            JSONObject jSubgeddits = jData.getJSONObject("subgeddit");
-            Iterator<String> keysIt = jSubgeddits.keys();
+            JSONObject subgeddits = jData.getJSONObject("subgeddit");
 
-            subgedditsArray = new ArrayList<>(jSubgeddits.length());
-            while(keysIt.hasNext()){
-                String latLng = keysIt.next();
-                JSONObject jSubgeddit = jSubgeddits.getJSONObject(latLng);
-
-                String name = jSubgeddit.getString("name");
-
-                // Create the Subgeddit object
-                Subgeddit subgeddit = new Subgeddit(latLng, name);
-
-                subgedditsArray.add(subgeddit);
-            }
-
-            return subgedditsArray;
+            return new ApiResponse(subgeddits);
 
         } catch (JSONException e) {
             e.printStackTrace();
