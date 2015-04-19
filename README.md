@@ -8,6 +8,8 @@ Reddit is a set of subreddits, each subreddit being a thread containing several 
 
 The web server part has been developped from scratch in PHP to provide an API. It can give back the data to the client, create a subgeddit, create threads on a subgeddit, create replies to a thread, up/down vote threads and individual comments.
 
+The thread names are automatically extracted from OpenStreetMap using the Nominatim API.
+
 A web view of the backend is available to poll the API manually.
 
 ## App
