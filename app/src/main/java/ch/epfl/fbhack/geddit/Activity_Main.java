@@ -33,7 +33,7 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_geddit_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -43,12 +43,11 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if(id==R.id.action_map){
+        if(id==R.id.action_map){
             Intent intent = new Intent(Activity_Main.this, Activity_Map.class);
+            startActivity(intent );
+        }else if(id==R.id.action_add){
+            Intent intent = new Intent(Activity_Main.this, Activity_Add.class);
             startActivity(intent );
         }
 

@@ -1,19 +1,16 @@
 package ch.epfl.fbhack.geddit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 
-public class Activity_Comments extends ActionBarActivity{//®  implements AdapterView.OnItemClickListener{
+public class Activity_Comments extends ActionBarActivity{
 
     private int subgedditIndex;
     private int threadIndex;
@@ -48,7 +45,7 @@ public class Activity_Comments extends ActionBarActivity{//®  implements Adapte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_subgeddit, menu);
+        getMenuInflater().inflate(R.menu.menu_threads, menu);
         return true;
     }
 
@@ -67,11 +64,4 @@ public class Activity_Comments extends ActionBarActivity{//®  implements Adapte
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//        Intent intent = new Intent(Activity_Comments.this, Activity_Comments.class);
-//        intent.putExtra("subgedditIndex", position);
-//        startActivity(intent);
-//    }
 }

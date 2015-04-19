@@ -45,7 +45,7 @@ public class Activity_Threads extends ActionBarActivity  implements AdapterView.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_subgeddit, menu);
+        getMenuInflater().inflate(R.menu.menu_threads, menu);
         return true;
     }
 
