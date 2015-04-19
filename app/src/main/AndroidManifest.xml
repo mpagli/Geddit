@@ -38,7 +38,10 @@
             android:name=".Activity_Add"
             android:label="@string/title_activity_add">
         </activity>
-
+        <activity
+            android:name=".Activity_Add_Thread"
+            android:label="">
+        </activity>
     </application>
 
 </manifest>

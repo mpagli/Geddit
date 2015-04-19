@@ -61,9 +61,10 @@ public class Activity_Threads extends ActionBarActivity  implements AdapterView.
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if(id==R.id.action_add) {
+            Intent intent = new Intent(Activity_Threads.this, Activity_Add_Thread.class);
+            intent.putExtra(Activity_Add_Thread.SUBGEDDIT_ID_EXTRA, subgedditID);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
