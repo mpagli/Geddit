@@ -1,5 +1,7 @@
 package ch.epfl.fbhack.geddit;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -84,11 +86,12 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if(id==R.id.action_map) {
-            Intent intent = new Intent(Activity_Main.this, Activity_Map.class);
-            startActivity(intent );
+            Intent intent = new Intent(getApplicationContext(), Activity_Map.class);
+            startActivity(intent);
+            finish();
         } else if(id==R.id.action_add) {
             Intent intent = new Intent(Activity_Main.this, Activity_Add.class);
-            startActivity(intent );
+            startActivity(intent);
         } else if(id==R.id.action_refresh) {
             new ApiRequester(this).execute();
         }
@@ -106,7 +109,7 @@ public class Activity_Main extends ActionBarActivity implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Intent intent = new Intent(Activity_Main.this, Activity_Threads.class);
+        Intent intent = new Intent(getApplicationContext(), Activity_Threads.class);
         intent.putExtra("subgeddit-id", sgIDs.get(position));
         startActivity(intent);
     }

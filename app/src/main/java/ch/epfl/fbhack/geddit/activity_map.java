@@ -29,10 +29,11 @@ import ch.epfl.fbhack.geddit.data.ApiResponse;
 
 public class Activity_Map extends ActionBarActivity {
 
-    private MapView mMap;
+    //private MapView mMap;
     private AccuracyCircleOverlay mAccuracyOverlay;
     private MyItemizedOverlay myItemizedOverlay;
 
+    private MapView mMap;
     private MapController mapController;
 
     private final LocationListener locationListener = new LocationListener() {
@@ -88,12 +89,8 @@ public class Activity_Map extends ActionBarActivity {
     }
 
     private void updateWithNewLocation(Location location) {
-        if(location != null && mMap != null && mapController != null) {
-            double lat = location.getLatitude();
-            double lon = location.getLongitude();
-
+        if(location != null && mapController != null) {
             mapController.setCenter(new GeoPoint(location.getLatitude(), location.getLongitude()));
-
             setUserPositionAt(location);
         }
     }
@@ -104,7 +101,9 @@ public class Activity_Map extends ActionBarActivity {
     }
 
     private void setCenterAndZoom(GeoPoint loc, int zoom) {
-        mMap.getController().setZoom(zoom);
+        if(mMap.getZoomLevel() < zoom) {
+            mMap.getController().setZoom(zoom);
+        }
         mMap.getController().setCenter(loc);
     }
 
@@ -143,9 +142,9 @@ public class Activity_Map extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if(id == R.id.action_list) {
-            Intent intent = new Intent(Activity_Map.this, Activity_Main.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(getApplicationContext(), Activity_Main.class);
             startActivity(intent);
+            finish();
         } else if(id==R.id.action_refresh) {
             new ApiRequester(this).execute();
         }

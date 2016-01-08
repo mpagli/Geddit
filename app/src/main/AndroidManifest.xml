@@ -16,7 +16,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity_Main"
-            android:label="@string/title_activity_main">
+            android:label="@string/title_activity_main"
+            android:noHistory="true"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -32,7 +34,9 @@
         </activity>
         <activity
             android:name=".Activity_Map"
-            android:label="@string/title_activity_activity_map">
+            android:label="@string/title_activity_activity_map"
+            android:noHistory="true"
+            android:launchMode="singleInstance">
         </activity>
         <activity
             android:name=".Activity_Add"

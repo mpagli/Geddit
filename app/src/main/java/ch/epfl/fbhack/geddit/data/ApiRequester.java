@@ -1,6 +1,7 @@
 package ch.epfl.fbhack.geddit.data;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -29,16 +30,22 @@ public class ApiRequester extends AsyncTask<Void, Integer, String> {
     private Activity_Map mapActivity;
     private Activity_Threads threadsActivity;
 
+    private Activity act;
+
     private static final int TIMEOUT = 15000;
     private static final String BASE_URL = "http://713f665696.testurl.ws/api/?action=read";
 
     public ApiRequester(Activity_Threads threadsActivity){
+        act = threadsActivity;
         this.threadsActivity = threadsActivity;
+
     }
     public ApiRequester(Activity_Main callingActivity){
+        act = callingActivity;
         this.mainActivity = callingActivity;
     }
     public ApiRequester(Activity_Map callingActivity){
+        act = callingActivity;
         this.mapActivity = callingActivity;
     }
 
@@ -83,7 +90,7 @@ public class ApiRequester extends AsyncTask<Void, Integer, String> {
     protected void onPostExecute(String jsonString) {
 
         if(jsonString == null){
-            Toast.makeText(mainActivity.getApplicationContext(), "Something wrong happened",
+            Toast.makeText(act.getApplicationContext(), "Something wrong happened in the network",
                     Toast.LENGTH_SHORT).show();
         }
 
@@ -95,9 +102,14 @@ public class ApiRequester extends AsyncTask<Void, Integer, String> {
         else if(threadsActivity != null)
             threadsActivity.processApiResponse();
 
+        mainActivity = null;
+        mapActivity = null;
+        threadsActivity = null;
+        act = null;
     }
 
     private void parseData(String jsonString) {
+        if(jsonString == null) return;
         try {
             JSONObject jData = new JSONObject(jsonString);
             JSONObject subgeddits = jData.getJSONObject("subgeddit");
